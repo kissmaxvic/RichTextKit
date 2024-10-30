@@ -32,30 +32,23 @@ open class RichTextView: UITextView, RichTextViewComponent {
         data: Data,
         format: RichTextDataFormat = .archivedData
     ) throws {
-        self.init()
+        self.init(usingTextLayoutManager: false) // Гарантируем использование TextKit 1
         try self.setup(with: data, format: format)
-        if #available(iOS 15, *) {
-            self.usesStandardTextScaling = false
-        }
-        if #available(iOS 16.0, *) {
-            self.usesStandardTextScaling = false 
-        }
     }
 
     public convenience init(
         string: NSAttributedString,
         format: RichTextDataFormat = .archivedData
     ) {
-        self.init()
+        self.init(usingTextLayoutManager: false) // Гарантируем использование TextKit 1
         self.setup(with: string, format: format)
-        if #available(iOS 15, *) {
-            self.usesStandardTextScaling = false
-        }
-        if #available(iOS 16.0, *) {
-            self.usesStandardTextScaling = false 
-        }
+    }
     // MARK: - Essentials
 
+    @available(iOS 16.0, *)
+    public convenience init(usingTextLayoutManager: Bool) {
+        self.init(frame: .zero, textContainer: usingTextLayoutManager ? nil : NSTextContainer())
+    }
     /// Get the frame of a certain range.
     open func frame(of range: NSRange) -> CGRect {
         let beginning = beginningOfDocument
