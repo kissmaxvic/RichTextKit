@@ -34,6 +34,12 @@ open class RichTextView: UITextView, RichTextViewComponent {
     ) throws {
         self.init()
         try self.setup(with: data, format: format)
+        if #available(iOS 15, *) {
+            self.usesStandardTextScaling = false
+        }
+        if #available(iOS 16, *) {
+            self.usingTextLayoutManager = false
+        }
     }
 
     public convenience init(
@@ -42,6 +48,12 @@ open class RichTextView: UITextView, RichTextViewComponent {
     ) {
         self.init()
         self.setup(with: string, format: format)
+        if #available(iOS 15, *) {
+            self.usesStandardTextScaling = false
+        }
+        if #available(iOS 16, *) {
+            self.usingTextLayoutManager = false
+        }
     }
 
     // MARK: - Essentials
