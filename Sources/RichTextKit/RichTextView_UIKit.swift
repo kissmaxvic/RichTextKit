@@ -32,7 +32,11 @@ open class RichTextView: UITextView, RichTextViewComponent {
         data: Data,
         format: RichTextDataFormat = .archivedData
     ) throws {
-        self.init(usingTextLayoutManager: false) // Гарантируем использование TextKit 1
+        if #available(iOS 16.0, *) {
+            self.init(usingTextLayoutManager: false) // Отключаем TextKit 2 на iOS 16 и выше
+        } else {
+            self.init() // Для более старых версий используем обычный инициализатор
+        }
         try self.setup(with: data, format: format)
     }
 
@@ -40,10 +44,13 @@ open class RichTextView: UITextView, RichTextViewComponent {
         string: NSAttributedString,
         format: RichTextDataFormat = .archivedData
     ) {
-        self.init(usingTextLayoutManager: false) // Гарантируем использование TextKit 1
+        if #available(iOS 16.0, *) {
+            self.init(usingTextLayoutManager: false) // Отключаем TextKit 2 на iOS 16 и выше
+        } else {
+            self.init() // Для более старых версий используем обычный инициализатор
+        }
         self.setup(with: string, format: format)
     }
-    // MARK: - Essentials
 
     @available(iOS 16.0, *)
     public convenience init(usingTextLayoutManager: Bool) {
