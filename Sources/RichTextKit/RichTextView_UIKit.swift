@@ -37,9 +37,6 @@ open class RichTextView: UITextView, RichTextViewComponent {
         if #available(iOS 15, *) {
             self.usesStandardTextScaling = false
         }
-        if #available(iOS 16, *) {
-            self.usingTextLayoutManager = false
-        }
     }
 
     public convenience init(
@@ -51,11 +48,15 @@ open class RichTextView: UITextView, RichTextViewComponent {
         if #available(iOS 15, *) {
             self.usesStandardTextScaling = false
         }
-        if #available(iOS 16, *) {
-            self.usingTextLayoutManager = false
-        }
     }
 
+    @available(iOS 16.0, *)
+    public convenience init(
+        usingTextLayoutManager: Bool
+    ) {
+        self.init()
+        self.usesStandardTextScaling = false 
+    }
     // MARK: - Essentials
 
     /// Get the frame of a certain range.
