@@ -14,7 +14,9 @@ struct TextKit1TextView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> UITextView {
         // Создаем UITextView с использованием TextKit 1
-        let textView = UITextView(usingTextLayoutManager: false)
+        if #available(iOS 16, *) {
+            let textView = UITextView(usingTextLayoutManager: false)
+        }
         textView.isEditable = true
         textView.isScrollEnabled = true
         textView.attributedText = text
@@ -37,7 +39,7 @@ public typealias RichTextViewRepresentable = NSTextView
 import UIKit
 
 /// This typealias bridges UIKit & AppKit native text views.
-public typealias RichTextViewRepresentable = TextKit1TextView
+public typealias RichTextViewRepresentable = TextKit1TextView()
 #endif
 
 
