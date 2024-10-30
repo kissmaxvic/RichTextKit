@@ -19,4 +19,13 @@ import UIKit
 public typealias RichTextViewRepresentable = UITextView
 #endif
 
+extension UITextView {
+    public static func makeTextView() -> UITextView {
+        if #available(iOS 16.0, *) {
+            return UITextView(usingTextLayoutManager: false)
+        } else {
+            return UITextView()
+        }
+    }
+}
 
